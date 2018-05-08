@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 
 namespace LabPOO
 {
@@ -17,6 +20,16 @@ namespace LabPOO
             cart = new List<Product>();
             market = new List<Product>();
             SupplyStore();
+            using (Stream stream = File.Open("data.bin", FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                BinaryFormatter bin = new BinaryFormatter();
+                bin.Serialize(stream, cart);
+            }
+            using (StreamReader streamReader = new StreamReader("data.bin"))
+            {
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                object obj = binaryFormatter.Deserialize(streamReader.BaseStream);
+            }
             while (true)
             {
                 PrintHeader();
@@ -51,6 +64,11 @@ namespace LabPOO
                     }
                     else if (answer == "5")
                     {
+                        using (Stream stream = File.Open("data.bin", FileMode.Create, FileAccess.Write, FileShare.None))
+                        {
+                            BinaryFormatter bin = new BinaryFormatter();
+                            bin.Serialize(stream, cart);
+                        }
                         Environment.Exit(1);
                     }
                 }
@@ -191,5 +209,7 @@ namespace LabPOO
                 response = Console.ReadKey(true);
             }
         }
+
+        
     }
 }
