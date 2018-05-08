@@ -232,19 +232,39 @@ namespace LabPOO
 
         public static void Check(List<string> receta, Product pr)
         {
+            int co = 0;
             foreach(string e in receta)
             {
                 if(e == pr.Name)
                 {
                     Console.WriteLine("Producto en la receta");
-                }
-
-                else
-                {
-                    cart.RemoveAt(cart.Count - 1);
-                    Console.WriteLine("Producto no esta en la receta");
+                    co++;
                     break;
                 }
+                
+            }
+
+            if(co == 0)
+            {
+                cart.RemoveAt(cart.Count - 1);
+                Console.WriteLine("Producto no esta en la receta");
+            }
+
+            int counter = 0;
+            foreach(string t in receta)
+            {
+                foreach(Product x in cart)
+                {
+                    if(x.Name == t)
+                    {
+                        counter++;
+                    }
+                }
+            }
+
+            if(counter == recipe.Count)
+            {
+                Pay();
             }
         }
     }
