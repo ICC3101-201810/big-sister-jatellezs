@@ -12,13 +12,16 @@ namespace LabPOO
 {
     class Program
     {
+        
         public static List<Product> cart;
         public static List<Product> market;
+        public static List<string> recipe;
 
         static void Main(string[] args)
         {
             cart = new List<Product>();
             market = new List<Product>();
+            recipe = new List<string>();
             SupplyStore();
             using (Stream stream = File.Open("data.bin", FileMode.Create, FileAccess.Write, FileShare.None))
             {
@@ -177,6 +180,19 @@ namespace LabPOO
             market.Add(new Product("Tomates Pelados en lata", 700, 48, "540g"));
             market.Add(new Product("Queso Parmesano", 3790, 41, "200g"));
             market.Add(new Product("Bolsa de Zanahorias", 890, 74, "1un"));
+            recipe.Add("Carne Molida");
+            recipe.Add("Láminas de Lasaña");
+            recipe.Add("Queso Parmesano");
+            recipe.Add("Mantequilla");
+            recipe.Add("Vino Blanco Caja");
+            recipe.Add("Tomates Pelados en lata");
+            recipe.Add("Bolsa de Zanahorias");
+            recipe.Add("Malla de Cebollas");
+            recipe.Add("Aceite de Oliva");
+            recipe.Add("Sal Lobos");
+            recipe.Add("Pimienta");
+            recipe.Add("Harina");
+            recipe.Add("Leche Entera");
         }
 
         public static void ShowRecipe()
@@ -210,6 +226,6 @@ namespace LabPOO
             }
         }
 
-        
+       
     }
 }

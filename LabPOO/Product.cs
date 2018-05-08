@@ -9,6 +9,7 @@ namespace LabPOO
     [Serializable]
     class Product
     {
+        public delegate void BigSister(Product s);
         private string name;
         private int stock;
         private int price; //Price for one unit of the product
@@ -31,6 +32,14 @@ namespace LabPOO
                 return true;
             }
             return false;
+        }
+
+        public void Process(BigSister sister)
+        {
+            if(sister != null)
+            {
+
+            }
         }
 
         public string Name { get => name; }
