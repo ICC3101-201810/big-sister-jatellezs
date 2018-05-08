@@ -16,12 +16,14 @@ namespace LabPOO
         public static List<Product> cart;
         public static List<Product> market;
         public static List<string> recipe;
+        public delegate void BigSister(List<string> r, Product p);
 
         static void Main(string[] args)
         {
             cart = new List<Product>();
             market = new List<Product>();
             recipe = new List<string>();
+            BigSister c1 = new BigSister(Check);
             SupplyStore();
             using (Stream stream = File.Open("data.bin", FileMode.Create, FileAccess.Write, FileShare.None))
             {
@@ -53,6 +55,7 @@ namespace LabPOO
                     else if (answer == "2")
                     {
                         WalkAround();
+                        c1(recipe, cart[cart.Count - 1]);
                         break;
                     }
                     else if (answer == "3")
@@ -113,6 +116,7 @@ namespace LabPOO
                     {
                         continue;
                     }
+
                     AddToCart(market[answer]);
                     break;
                 }
@@ -182,7 +186,7 @@ namespace LabPOO
             market.Add(new Product("Bolsa de Zanahorias", 890, 74, "1un"));
             recipe.Add("Carne Molida");
             recipe.Add("Láminas de Lasaña");
-            recipe.Add("Queso Parmesano");
+            recipe.Add("Queso Rallado Parmesano");
             recipe.Add("Mantequilla");
             recipe.Add("Vino Blanco Caja");
             recipe.Add("Tomates Pelados en lata");
@@ -226,6 +230,22 @@ namespace LabPOO
             }
         }
 
-       
+        public static void Check(List<string> receta, Product pr)
+        {
+            foreach(string e in receta)
+            {
+                if(e == pr.Name)
+                {
+                    Console.WriteLine("Producto en la receta");
+                }
+
+                else
+                {
+                    cart.RemoveAt(cart.Count - 1);
+                    Console.WriteLine("Producto no esta en la receta");
+                    break;
+                }
+            }
+        }
     }
 }
